@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0a0a0a;
+  color: #d1d1d1;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #ffffff;
+}
+
+/* Неоновое свечение */
+.neon-glow {
+  filter: drop-shadow(0 0 8px rgba(229, 229, 229, 0.4))
+          drop-shadow(0 0 20px rgba(163, 163, 163, 0.3))
+          drop-shadow(0 0 40px rgba(163, 163, 163, 0.2));
+}
+
+.neon-glow-sm {
+  filter: drop-shadow(0 0 4px rgba(229, 229, 229, 0.3))
+          drop-shadow(0 0 10px rgba(163, 163, 163, 0.2));
+}
+
+.neon-text {
+  text-shadow: 0 0 10px rgba(229, 229, 229, 0.5),
+               0 0 20px rgba(163, 163, 163, 0.3),
+               0 0 40px rgba(163, 163, 163, 0.2);
+}
+
+/* Анимация пульсации свечения */
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(229, 229, 229, 0.4))
+            drop-shadow(0 0 20px rgba(163, 163, 163, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(229, 229, 229, 0.6))
+            drop-shadow(0 0 30px rgba(163, 163, 163, 0.4));
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+/* Выделение текста */
+::selection {
+  background: rgba(229, 229, 229, 0.2);
+  color: #ffffff;
+}
