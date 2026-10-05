@@ -1,49 +1,30 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 
+/**
+ * Фирменный логотип Raptor с неоновым свечением.
+ * size="hero" — большой логотип на первом экране (с анимацией «включения неона»),
+ * size="sm" — маленький, для шапки и подвала.
+ */
 interface NeonLogoProps {
-  size?: 'sm' | 'md' | 'lg';
-  animated?: boolean;
+  size?: 'sm' | 'md' | 'hero';
+  className?: string;
 }
 
-export default function NeonLogo({ size = 'lg', animated = true }: NeonLogoProps) {
-  const sizeConfig = {
-    sm: { className: 'w-48 h-48', width: 8, height: 48 },
-    md: { className: 'w-24 h-24', width: 96, height: 96 },
-    lg: { className: 'w-64 h-64 md:w-80 md:h-80', 
-  width: 220, 
-  height: 220  },
-  };
+const px = { sm: 36, md: 96, hero: 320 } as const;
 
-  const { className, width, height } = sizeConfig[size];
-
-  const LogoImage = (
-    <div className={`${className} relative neon-glow`}>
+export default function NeonLogo({ size = 'hero', className = '' }: NeonLogoProps) {
+  return (
+    <span className={`logo logo--${size} ${className}`}>
+      {size === 'hero' && <span className="logo__halo" aria-hidden />}
       <Image
         src="/images/reviews/raptorlogo.svg"
-        alt="WebRaptor Logo"
-        width={width}
-        height={height}
-        className="w-full h-full object-contain"
-        priority
+        alt="Raptor"
+        width={px[size]}
+        height={px[size]}
+        className="logo__img"
+        priority={size !== 'md'}
+        unoptimized
       />
-    </div>
+    </span>
   );
-
-  if (animated) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-        className="animate-pulse-glow"
-      >
-        {LogoImage}
-      </motion.div>
-    );
-  }
-
-  return LogoImage;
 }
