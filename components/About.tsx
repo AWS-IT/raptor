@@ -12,7 +12,7 @@ export default function About() {
         <Reveal className="about__text">
           <span className="eyebrow">Обо мне</span>
           <h2 id="about-title" className="section-title">
-            Человек за <span className="text-accent">Raptor</span>
+           Project <span className="text-accent">Raptor</span>
           </h2>
           {profile.short.map((p, i) => (
             <p key={i} className="about__p">
