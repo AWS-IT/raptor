@@ -39,7 +39,7 @@ export const profile = {
    * Путь пиши от папки public, начиная с «/»: '/images/about/avatar.jpg'.
    * Пока файла нет, показывается фирменная заглушка.
    */
-  photo: '/images/about/avatar.jpg',
+  photo: '/images/about/avatar.jp',
   /** Короткая биография на главной */
   short: [
     'Я — Муслим Бисултанов, основатель Raptor. Начинал с сайтов, сегодня делаю игры, приложения и веб-проекты.',
