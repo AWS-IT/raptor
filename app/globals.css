@@ -504,13 +504,24 @@ ol {
 
 .mobile-menu {
   position: fixed;
+  z-index: 49;
   inset: var(--header-h) 0 0 0;
+  height: calc(100dvh - var(--header-h));
   background: rgba(7, 7, 7, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 28px clamp(16px, 4vw, 40px) 40px;
   overflow-y: auto;
   animation: fade-in 0.3s ease;
+}
+.header--open {
+  background: rgba(7, 7, 7, 0.97);
+}
+html.menu-open .cookie {
+  display: none;
+}
+.mobile-menu[hidden] {
+  display: none;
 }
 .mobile-menu__nav {
   display: flex;

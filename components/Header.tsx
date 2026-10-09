@@ -30,9 +30,18 @@ export default function Header() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
+  // Если окно расширили до компьютерной ширины — закрываем мобильное меню
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 961px)');
+    const onChange = () => mq.matches && setOpen(false);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
   return (
+    <>
     <header className={`header ${scrolled ? 'header--scrolled' : ''} ${open ? 'header--open' : ''}`}>
       <div className="header__inner container">
         <Link href="/" className="header__brand" aria-label="Raptor — на главную">
@@ -72,27 +81,36 @@ export default function Header() {
         </button>
       </div>
 
-      <div id="mobile-menu" className="mobile-menu" hidden={!open}>
-        <nav className="mobile-menu__nav" aria-label="Мобильная навигация">
-          {divisions.map((d, i) => (
-            <Link key={d.id} href={`/${d.id}`} className="mobile-menu__link" style={{ '--i': i } as CSSProperties}>
-              <span className="mobile-menu__icon">
-                <DivisionIcon id={d.id} size={22} />
-              </span>
-              <span>
-                <span className="mobile-menu__name">{d.name}</span>
-                <span className="mobile-menu__sub">{d.short}</span>
-              </span>
-            </Link>
-          ))}
-          <Link href="/about" className="mobile-menu__link" style={{ '--i': 3 } as CSSProperties}>
-            <span className="mobile-menu__name">Обо мне</span>
-          </Link>
-          <Link href="/#contact" className="btn btn--accent btn--lg mobile-menu__cta" onClick={() => setOpen(false)}>
-            Оставить заявку
-          </Link>
-        </nav>
-      </div>
     </header>
+
+    {/* Меню вынесено из <header>: размытие шапки (backdrop-filter) иначе «запирает» его внутри полоски 72px */}
+    <div id="mobile-menu" className="mobile-menu" hidden={!open}>
+      <nav className="mobile-menu__nav" aria-label="Мобильная навигация">
+        {divisions.map((d, i) => (
+          <Link
+            key={d.id}
+            href={`/${d.id}`}
+            className="mobile-menu__link"
+            style={{ '--i': i } as CSSProperties}
+            onClick={() => setOpen(false)}
+          >
+            <span className="mobile-menu__icon">
+              <DivisionIcon id={d.id} size={22} />
+            </span>
+            <span>
+              <span className="mobile-menu__name">{d.name}</span>
+              <span className="mobile-menu__sub">{d.short}</span>
+            </span>
+          </Link>
+        ))}
+        <Link href="/about" className="mobile-menu__link" style={{ '--i': 3 } as CSSProperties} onClick={() => setOpen(false)}>
+          <span className="mobile-menu__name">Обо мне</span>
+        </Link>
+        <Link href="/#contact" className="btn btn--accent btn--lg mobile-menu__cta" onClick={() => setOpen(false)}>
+          Оставить заявку
+        </Link>
+      </nav>
+    </div>
+    </>
   );
 }
